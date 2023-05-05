@@ -10,6 +10,8 @@ class AdventureScene extends Phaser.Scene {
     }
 
     create() {
+        this.onEnter();  // This needs to be called before
+
         this.transitionDuration = 1000;
 
         this.w = this.game.config.width;
@@ -19,12 +21,16 @@ class AdventureScene extends Phaser.Scene {
         this.cameras.main.setBackgroundColor('#444');
         this.cameras.main.fadeIn(this.transitionDuration, 0, 0, 0);
 
-        this.add.rectangle(this.w * 0.75, 0, this.w * 0.25, this.h).setOrigin(0, 0).setFillStyle(0);
-        this.add.text(this.w * 0.75 + this.s, this.s)
+        this.inv = this.add.rectangle(this.w * 0.75, 0, this.w * 0.25, this.h).setOrigin(0, 0).setFillStyle(0);
+        this.scenename = this.add.text(this.w * 0.75 + this.s, this.s)
             .setText(this.name)
             .setStyle({ fontSize: `${3 * this.s}px` })
             .setWordWrapWidth(this.w * 0.25 - 2 * this.s);
         
+        this.floatingMsgBox = this.add.rectangle(this.w - 50, 50, this.w * 0.25, this.h * 0.30, 0)
+            .setOrigin(1, 0)
+            .setAlpha(0)
+
         this.messageBox = this.add.text(this.w * 0.75 + this.s, this.h * 0.33)
             .setStyle({ fontSize: `${2 * this.s}px`, color: '#eea' })
             .setWordWrapWidth(this.w * 0.25 - 2 * this.s);
@@ -37,7 +43,7 @@ class AdventureScene extends Phaser.Scene {
         this.inventoryTexts = [];
         this.updateInventory();
 
-        this.add.text(this.w-3*this.s, this.h-3*this.s, "📺")
+        let fs = this.add.text(this.w-3*this.s, this.h-3*this.s, "📺")
             .setStyle({ fontSize: `${2 * this.s}px` })
             .setInteractive({useHandCursor: true})
             .on('pointerover', () => this.showMessage('Fullscreen?'))
@@ -48,13 +54,78 @@ class AdventureScene extends Phaser.Scene {
                     this.scale.startFullscreen();
                 }
             });
+        
 
-        this.onEnter();
+        // Opening and closing the inventory
 
+        this.isInvOpen = true
+
+        this.closeinv = this.add.rectangle(this.inv.x, this.inv.y, 30, 50, 0xff00ff)
+        this.closeinv.setOrigin(1, 0)
+        this.closeinv.setInteractive()
+
+        this.arrowclose = this.add.text(this.closeinv.x - (this.closeinv.width / 2), this.closeinv.y + (this.closeinv.height / 2), ">")
+        this.arrowclose.setOrigin(0.5, 0.5)
+        this.arrowclose.setFontSize(20)
+        this.arrowclose.setColor("blue")
+
+        this.closeinv.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            this.toggleinv(0)
+        })
+        
+        this.openinv = this.add.rectangle(this.w, 0, 30, 50, 0xff00ff)
+        this.openinv.setOrigin(1, 0)
+        this.openinv.setAlpha(0)
+
+        this.arrowopen = this.add.text(this.openinv.x - (this.openinv.width / 2), this.openinv.y + (this.openinv.height / 2), "<")
+        this.arrowopen.setOrigin(0.5, 0.5)
+        this.arrowopen.setFontSize(20)
+        this.arrowopen.setColor("blue")
+
+        this.openinv.on(Phaser.Input.Events.POINTER_DOWN, () => {
+            this.toggleinv(1)
+        })
+        
+    }
+
+    toggleinv(open) {
+        this.inv.setAlpha(open)
+        this.scenename.setAlpha(open)
+        this.messageBox.setAlpha(open)
+        this.inventoryBanner.setAlpha(open)
+        this.arrowclose.setAlpha(open)
+        this.closeinv.setAlpha(open)
+        this.openinv.setAlpha(!open)
+
+        if (open) {
+            this.messageBox.setX(this.w * 0.75 + this.s).setY(this.h * 0.33)
+            this.closeinv.setInteractive()
+            this.openinv.disableInteractive()
+        }
+        else {
+            this.messageBox.setX(this.floatingMsgBox.x - this.floatingMsgBox.width + 10)
+            .setY(this.floatingMsgBox.y + 10)
+            this.closeinv.disableInteractive()
+            this.openinv.setInteractive()
+        }
+
+        this.isInvOpen = open
+    }
+
+    showMessageBoxClosed() {
+        this.tweens.add({
+            targets: this.floatingMsgBox,
+            alpha: { from: 1, to: 0 },
+            easing: 'Quintic.in',
+            duration: 4 * this.transitionDuration
+        });
     }
 
     showMessage(message) {
         this.messageBox.setText(message);
+        if (!this.isInvOpen) {
+            this.showMessageBoxClosed()
+        }
         this.tweens.add({
             targets: this.messageBox,
             alpha: { from: 1, to: 0 },
@@ -142,6 +213,10 @@ class AdventureScene extends Phaser.Scene {
         this.time.delayedCall(this.transitionDuration, () => {
             this.scene.start(key, { inventory: this.inventory });
         });
+    }
+
+    update() {
+        
     }
 
     onEnter() {
