@@ -70,32 +70,35 @@ class AdventureScene extends Phaser.Scene {
         this.arrowclose.setColor("blue")
 
         this.closeinv.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            this.toggleinv(0)
+            this.toggleinv(false)
         })
         
         this.openinv = this.add.rectangle(this.w, 0, 30, 50, 0xff00ff)
-        this.openinv.setOrigin(1, 0)
-        this.openinv.setAlpha(0)
+        .setOrigin(1, 0)
+        .setVisible(0)
 
         this.arrowopen = this.add.text(this.openinv.x - (this.openinv.width / 2), this.openinv.y + (this.openinv.height / 2), "<")
-        this.arrowopen.setOrigin(0.5, 0.5)
-        this.arrowopen.setFontSize(20)
-        this.arrowopen.setColor("blue")
+        .setOrigin(0.5, 0.5)
+        .setFontSize(20)
+        .setColor("blue")
+        .setVisible(0)
 
         this.openinv.on(Phaser.Input.Events.POINTER_DOWN, () => {
-            this.toggleinv(1)
+            this.toggleinv(true)
         })
         
     }
 
     toggleinv(open) {
-        this.inv.setAlpha(open)
-        this.scenename.setAlpha(open)
-        this.messageBox.setAlpha(open)
-        this.inventoryBanner.setAlpha(open)
-        this.arrowclose.setAlpha(open)
-        this.closeinv.setAlpha(open)
-        this.openinv.setAlpha(!open)
+        this.inv.setVisible(open)
+        this.scenename.setVisible(open)
+        // this.messageBox.setVisible(open)
+        // this.inventoryBanner.setVisible(open)
+        this.arrowclose.setVisible(open)
+        this.closeinv.setVisible(open)
+        this.arrowopen.setVisible(!open)
+        this.openinv.setVisible(!open)
+        this.floatingMsgBox.setVisible(!open)
 
         if (open) {
             this.messageBox.setX(this.w * 0.75 + this.s).setY(this.h * 0.33)
@@ -112,6 +115,10 @@ class AdventureScene extends Phaser.Scene {
         this.isInvOpen = open
     }
 
+    setPointerOverMsg(object, func) {
+        object.on(Phaser.Input.Events.POINTER_DOWN, func)
+    }
+    
     showMessageBoxClosed() {
         this.tweens.add({
             targets: this.floatingMsgBox,

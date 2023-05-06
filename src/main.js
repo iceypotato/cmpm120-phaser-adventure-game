@@ -11,6 +11,7 @@ let gamecfg = {
         // SplashScene,
         // TitleScene,
         ComputerRoomScene,
+        HallwayScene,
     ]
 }
 

@@ -10,6 +10,7 @@ class ComputerRoomScene extends AdventureScene {
         // Images here
         this.load.path = "./assets/images/"
         this.load.image("title", "title.png")
+        this.load.image("othergame", "other game title.png")
         this.load.image("empty room", "empty room.png")
         this.load.image("desk", "desk.png")
         this.load.image("pc", "desktop pc.png")
@@ -21,6 +22,7 @@ class ComputerRoomScene extends AdventureScene {
 
         // Audio here
         this.load.path = "./assets/audio/"
+        this.load.audio("xenogenesis", "TheFatRat - Xenogenesis cut.wav")
         
         this.cameras.main.setBackgroundColor(0)
     }
@@ -44,6 +46,7 @@ class ComputerRoomScene extends AdventureScene {
             .setInteractive()
 
         this.monitor = this.add.sprite(this.desk.x, this.desk.y - 220, "monitoron")
+        .setInteractive()
 
         let chair = this.add.sprite(450, 800, "chair")
         chair.setScale(0.9, 0.9)
@@ -51,6 +54,15 @@ class ComputerRoomScene extends AdventureScene {
         this.door = this.add.sprite(1800, 650, "door")
             .setInteractive()
 
+        this.othergame = this.add.sprite(this.monitor.x, this.monitor.y - 30, "othergame")
+        // .setInteractive()
+        this.othergame.setScale(this.monitor.width / this.othergame.width - 0.01, this.monitor.height / this.othergame.height - 0.05)
+
+        this.menuMusic = this.sound.add("xenogenesis")
+        this.menuMusic.addMarker({
+            name: "intro skip",
+            start: 3.5,
+        })
         
         this.createTweens()
         this.createInteractions()
@@ -61,13 +73,26 @@ class ComputerRoomScene extends AdventureScene {
     }
 
     createInteractions() {
+
         this.door.on(Phaser.Input.Events.POINTER_OVER, () => {
             if (this.isPCon) this.showMessage("Do I want to go outside?")
             else this.showMessage("Let's go i guess")
         })
         .on(Phaser.Input.Events.POINTER_DOWN, () => {
             if (this.isPCon) this.showMessage("You can't open the door. It's not safe unless my pc is off.")
-            else {}
+            else {
+                this.gotoScene("hallway")
+            }
+        })
+
+        this.monitor.on(Phaser.Input.Events.POINTER_OVER, () => {
+            this.showMessage("A gaming monitor. 690 hz. pog.")
+        })
+        .on(Phaser.Input.Events.POINTER_DOWN, () => {
+            if (this.isPCon)
+                this.menuMusic.play("intro skip", {
+                    volume: 0.1,
+                })
         })
 
         this.pc.on(Phaser.Input.Events.POINTER_OVER, () => {
@@ -79,6 +104,7 @@ class ComputerRoomScene extends AdventureScene {
                 this.showMessage("You turn off the pc.");
                 // this.gainItem('key');
                 this.monitor.setTexture("monitoroff")
+                this.othergame.setVisible(false)
                 this.isPCon = false
             }
             else this.showMessage("I dont want to get back into league.")
