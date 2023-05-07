@@ -11,6 +11,7 @@ class AdventureScene extends Phaser.Scene {
 
     create() {
         this.onEnter();  // This needs to be called before
+        this.isInvOpen = true
 
         this.transitionDuration = 1000;
 
@@ -58,7 +59,7 @@ class AdventureScene extends Phaser.Scene {
 
         // Opening and closing the inventory
 
-        this.isInvOpen = true
+
 
         this.closeinv = this.add.rectangle(this.inv.x, this.inv.y, 30, 50, 0xff00ff)
         this.closeinv.setOrigin(1, 0)
@@ -170,6 +171,9 @@ class AdventureScene extends Phaser.Scene {
                 .setWordWrapWidth(this.w * 0.75 + 4 * this.s);
             h += text.height + this.s;
             this.inventoryTexts.push(text);
+            if (!this.isInvOpen) {
+                text.setVisible(0)
+            }
         });
     }
 

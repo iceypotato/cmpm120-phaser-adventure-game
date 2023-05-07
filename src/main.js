@@ -14,6 +14,7 @@ let gamecfg = {
         HallwayScene,
         BedroomScene,
         OutsideScene,
+        EndingScene,
     ]
 }
 

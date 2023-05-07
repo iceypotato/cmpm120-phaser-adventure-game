@@ -28,7 +28,11 @@ class OutsideScene extends AdventureScene {
             this.showMessage("THE HOLY GRASS")
         })
         .on(Phaser.Input.Events.POINTER_DOWN, () => {
-            this.showMessage("I FINALLY TOUCHED GRASS!!!!")
+            this.showMessage("I FINALLY TOUCHED GRASS!!!! Woah something is happening!")
+            this.cameras.main.fade(2000, 255, 255, 255, false)
+            this.time.delayedCall(2000, () => {
+                this.scene.start("end")
+            })
         })
     }
 

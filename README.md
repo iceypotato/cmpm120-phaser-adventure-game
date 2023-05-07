@@ -46,35 +46,41 @@ Code sources:
     * https://www.youtube.com/watch?v=grd-K33tOSM
 
 ## Code requirements
-- **4+ scenes based on `AdventureScene`**
-    - `ComputerRoomScene`
-    - `HallwayScene`
-    - `BedroomScene`
-    - `OutsideScene`
-- **2+ scenes *not* based on `AdventureScene`**
-    - `StartGameScene`
-    - `SplashScene`
-    - `TitleScene`
-- **2+ methods or other enhancement added to the adventure game engine to simplify my scenes**:
-    - `destroyItemFromScene`
-        - Creates a tween to fade the item out, then destroys the item.
-    - `toggleinv`
-        - Makes the inventory openable and closeable.
+**4+ scenes based on `AdventureScene`**
+- `ComputerRoomScene`
+- `HallwayScene`
+- `BedroomScene`
+- `OutsideScene`
+
+**2+ scenes *not* based on `AdventureScene`**
+- `StartGameScene`
+- `SplashScene`
+- `TitleScene`
+
+**2+ methods or other enhancement added to the adventure game engine to simplify my scenes**:
+- `destroyItemFromScene`
+    - Creates a tween to fade the item out, then destroys the item.
+- `toggleinv`
+    - Makes the inventory openable and closeable.
 
 ## Experience requirements
-- **4+ locations in the game world**
-    - `ComputerRoomScene`
-    - `HallwayScene`
-    - `BedroomScene`
-    - `OutsideScene`
-- **2+ interactive objects in most scenes**
-    - Clicking on the monitor plays a sound
-    - Clicking on the imposter plays a sound
-- **Many objects have `pointerover` messages**
-    - The PC in the computer room
-    - The doors in the hallway
-- **Many objects have `pointerdown` effects**
-    - Clicking on the monitor plays a sound
-    - Clicking on the imposter plays a sound
-- **Some objects are themselves animated**
-    - All items when being picked up fade out
+**4+ locations in the game world** 
+- `ComputerRoomScene`
+- `HallwayScene`
+- `BedroomScene`
+- `OutsideScene`
+
+**2+ interactive objects in most scenes**
+- Clicking on the monitor plays a sound
+- Clicking on the imposter plays a sound
+
+**Many objects have `pointerover` messages**
+- The PC in the computer room
+- The doors in the hallway
+
+**Many objects have `pointerdown` effects**
+- Clicking on the monitor plays a sound
+- Clicking on the imposter plays a sound
+
+**Some objects are themselves animated**
+- All items when being picked up fade out
