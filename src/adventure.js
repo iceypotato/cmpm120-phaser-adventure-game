@@ -93,12 +93,16 @@ class AdventureScene extends Phaser.Scene {
         this.inv.setVisible(open)
         this.scenename.setVisible(open)
         // this.messageBox.setVisible(open)
-        // this.inventoryBanner.setVisible(open)
+        this.inventoryBanner.setVisible(open)
         this.arrowclose.setVisible(open)
         this.closeinv.setVisible(open)
         this.arrowopen.setVisible(!open)
         this.openinv.setVisible(!open)
         this.floatingMsgBox.setVisible(!open)
+
+        this.inventoryTexts.forEach((obj) => {
+            obj.setVisible(open)
+        })
 
         if (open) {
             this.messageBox.setX(this.w * 0.75 + this.s).setY(this.h * 0.33)
@@ -171,6 +175,17 @@ class AdventureScene extends Phaser.Scene {
 
     hasItem(item) {
         return this.inventory.includes(item);
+    }
+
+    destroyItemFromScene(itemObject) {
+        this.add.tween({
+            targets: itemObject,
+            alpha: 0,
+            duration: 1000,
+            onComplete: () => {
+                itemObject.destroy()
+            }
+        })
     }
 
     gainItem(item) {

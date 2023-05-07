@@ -10,8 +10,10 @@ let gamecfg = {
         // StartGameScene,
         // SplashScene,
         // TitleScene,
-        ComputerRoomScene,
-        HallwayScene,
+        // ComputerRoomScene,
+        // HallwayScene,
+        // BedroomScene,
+        OutsideScene,
     ]
 }
 
