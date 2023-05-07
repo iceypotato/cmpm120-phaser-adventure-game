@@ -7,12 +7,12 @@ let gamecfg = {
         height: 1080
     },
     scene: [
-        // StartGameScene,
-        // SplashScene,
-        // TitleScene,
-        // ComputerRoomScene,
-        // HallwayScene,
-        // BedroomScene,
+        StartGameScene,
+        SplashScene,
+        TitleScene,
+        ComputerRoomScene,
+        HallwayScene,
+        BedroomScene,
         OutsideScene,
     ]
 }

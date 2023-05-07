@@ -49,8 +49,9 @@ class ComputerRoomScene extends AdventureScene {
         this.monitor = this.add.sprite(this.desk.x, this.desk.y - 220, "monitoron")
         .setInteractive()
 
-        let chair = this.add.sprite(450, 800, "chair")
-        chair.setScale(0.9, 0.9)
+        this.chair = this.add.sprite(450, 800, "chair")
+        .setScale(0.9, 0.9)
+        .setInteractive()
 
         this.door = this.add.sprite(1800, 650, "door")
             .setInteractive()
@@ -123,6 +124,17 @@ class ComputerRoomScene extends AdventureScene {
             this.showMessage("You got a key! Well, an ordinary one.")
             this.gainItem("key")
             this.destroyItemFromScene(this.key)
+        })
+
+        this.chair.on(Phaser.Input.Events.POINTER_OVER, () => {
+            this.showMessage("A gaming chair.")
+        })
+        .on(Phaser.Input.Events.POINTER_DOWN, () => {
+            this.showMessage("It feels comfy")
+            this.tweens.add({
+                targets: this.chair,
+                x: this.chair.x + 200,
+            })
         })
 
     }

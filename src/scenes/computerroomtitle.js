@@ -83,6 +83,7 @@ class TitleScene extends Phaser.Scene {
     }
 
     createTweens() {
+        this.cameras.main.fadeIn(2000)
         
         let tw1 = this.tweens.chain({
             tweens: [
@@ -95,7 +96,7 @@ class TitleScene extends Phaser.Scene {
                 // },
                 {
                     targets: this.title,
-                    angle: 10,
+                    angle: {from: -10, to: 10},
                     repeat: -1,
                     yoyo: true,
                     duration: 2000,

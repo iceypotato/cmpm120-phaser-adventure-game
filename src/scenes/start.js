@@ -5,6 +5,8 @@ class StartGameScene extends Phaser.Scene {
     }
     
     preload() {
+        this.gamew = this.game.config.width
+        this.gameh = this.game.config.height
         this.cameras.main.setBackgroundColor(0)
     }
 
@@ -19,7 +21,7 @@ class StartGameScene extends Phaser.Scene {
             }
         }, this)
 
-        let click = this.add.text(gamecfg.width / 2, gamecfg.height / 2, "Click anywhere to start")
+        let click = this.add.text(this.gamew / 2, this.gameh / 2, "Click anywhere to start")
         click.setFontFamily("Comic Sans MS")
         click.setAlign("center")
         click.setFontSize(100)

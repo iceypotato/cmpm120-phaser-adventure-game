@@ -27,11 +27,11 @@ class HallwayScene extends AdventureScene {
         this.leftdoor = this.add.rectangle(this.hallway.x - 410, this.hallway.y + 50, 350, 700, 0xff00ff, 0)
         .setInteractive()
 
-        this.rightdoor = this.add.rectangle(this.hallway.x + 390, this.hallway.y + 50, 350, 700, 0xff00ff, 1)
+        this.rightdoor = this.add.rectangle(this.hallway.x + 390, this.hallway.y + 50, 350, 700, 0xff00ff, 0)
         .setInteractive()
 
-        this.meme = this.add.sprite(this.hallway.x, this.hallway.y + 500, "waterbottle")
-        .setScale(0.2, 0.2)
+        this.meme = this.add.sprite(this.hallway.x, this.hallway.y + 500, "meme")
+        .setScale(0.1, 0.1)
         .setAngle(40)
         .setInteractive()
         
@@ -75,8 +75,11 @@ class HallwayScene extends AdventureScene {
         .on(Phaser.Input.Events.POINTER_DOWN, () => {
             if (this.hasItem("key")) {
                 this.showMessage("I unlocked the secrets to the bedroom")
+                this.loseItem("key")
+                this.locked = false
             }
-            if (this.hasItem("dank meme")) {
+            else if (this.hasItem("dank meme")) {
+                this.showMessage("Onto the next room")
                 this.gotoScene("bedroom")
             }
             else {

@@ -5,6 +5,9 @@ class SplashScene extends Phaser.Scene {
     }
 
     preload() {
+        this.gamew = this.game.config.width
+        this.gameh = this.game.config.height
+
         this.load.path = "./assets/"
 
         this.load.image("splash", "images/studio splash.png")
@@ -25,7 +28,7 @@ class SplashScene extends Phaser.Scene {
             }
         }, this)
     
-        let studio = this.add.sprite(gamecfg.width / 2 , gamecfg.height / 2, "splash")
+        let studio = this.add.sprite(this.gamew / 2 , this.gameh / 2, "splash")
         studio.alpha = 0
         studio.scaleY = 0.5
         studio.scaleX = 0.5
@@ -61,7 +64,7 @@ class SplashScene extends Phaser.Scene {
         let fadeout = () => {
             camera.fadeOut(1000)
             this.time.delayedCall(1000, () => {
-                this.scene.start("computer room")
+                this.scene.start("title")
             })
         }
     }

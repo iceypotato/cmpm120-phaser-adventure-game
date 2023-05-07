@@ -17,9 +17,19 @@ class OutsideScene extends AdventureScene {
         this.outside = this.add.sprite(this.gamew / 2, this.gameh / 2, "outside")
         this.outside.setScale(this.gameh / this.outside.displayHeight)
 
-        this.add.rectangle(this.outside.x, this.outside.y + 420, this.outside.displayWidth, 240, 0xff00ff, 0.5)
+        this.grass = this.add.rectangle(this.outside.x, this.outside.y + 420, this.outside.displayWidth, 240, 0xff00ff, 0)
         .setInteractive()
         
+        this.createInteractions()
+    }
+
+    createInteractions() {
+        this.grass.on(Phaser.Input.Events.POINTER_OVER, () => {
+            this.showMessage("THE HOLY GRASS")
+        })
+        .on(Phaser.Input.Events.POINTER_DOWN, () => {
+            this.showMessage("I FINALLY TOUCHED GRASS!!!!")
+        })
     }
 
 }
