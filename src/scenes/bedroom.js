@@ -29,7 +29,7 @@ class BedroomScene extends AdventureScene {
         .setScale(0.3, 0.3)
         .setInteractive()
 
-        this.outside = this.add.rectangle(this.bedroom.x + 320, this.bedroom.y + 50, 200, 200, 0xff00ff, 0.5)
+        this.outside = this.add.rectangle(this.bedroom.x + 320, this.bedroom.y + 50, 200, 200, 0xff00ff, 0)
         .setInteractive()
 
         this.amogus = this.add.sprite(this.bedroom.x + 300, this.bedroom.y + 100, "amogus")
